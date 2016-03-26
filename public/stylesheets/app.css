@@ -1,0 +1,16 @@
+#console {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: black;
+    color: white;
+    font-family: monospace;
+    overflow: scroll;
+}
+
+#console span {
+    display: block;
+    clear: both;
+}
