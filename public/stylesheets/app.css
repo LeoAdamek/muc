@@ -1,16 +1,28 @@
-#console {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    background: black;
-    color: white;
-    font-family: monospace;
-    overflow: scroll;
+canvas#drawing-area {
+    border: 2px solid grey;
+    border-radius: 4em;
 }
 
-#console span {
-    display: block;
+canvas#preview {
+    border: 1px solid lightgrey;
+    margin-top: 1em;
+}
+
+#tool-pane {
+    position: fixed;
+    z-index: 1000;
+    left: -2px;
+    border: 2px solid grey;
+    border-radius: 0 2em 2em 0;
+    height: 40em;
+    width: 200px;
+}
+
+h2 {
+    font-variant-caps: small-caps;
+}
+
+#line-color-picker {
+    margin-top: 1em;
     clear: both;
 }

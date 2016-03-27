@@ -1,3 +1,25 @@
 extends template
 block body
-    h1 Hello World
+    h1 Multi-user Canvas
+
+    p I'm working on stuff so it might break.
+
+    #tool-pane
+        div(width="100%" align="center")
+            h2 Tools
+            canvas#preview(width="64", height="64")
+
+        div(width="100%" align="center")
+            input(type="color" id="line-color-picker" width="100%")
+
+
+    canvas#drawing-area
+        | This app requires the HTML Canvas API to work. Please use a real browser.
+
+
+    a#reset.btn.btn-danger.btn-lg.col-md-12(href="#")
+        | RESET
+
+    .row
+        | Current Users:
+        span#user-count 0

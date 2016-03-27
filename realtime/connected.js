@@ -1,9 +1,15 @@
 module.exports = function(user) {
-    console.log("User Connected: " + user.id);   
+    user.broadcast.emit('system message', 'User Connected');
     
-    user.emit('message', 'Connected');
-    
-    setInterval(function(){
-        user.emit('message', 'ping');
-    }, 1000);
+    user.on('chat message', function(message) {
+
+        R.table("messages").insert({
+            userId: user.id,
+            message: message,
+            at: new  Date()
+        }).run(DB, function(){
+            user.broadcast.emit('chat message', message);  
+        });
+
+    });
 };
