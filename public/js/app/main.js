@@ -1,7 +1,4 @@
-define(['socketio','color_parser','color_convert'], function(io, CP, CV) {
-    console.log("[APP] Initializing");
-    localStorage.debug = [];
-    
+define('app/main', ['socketio','color_parser','color_convert'], function(io, CP, CV) {
     const MIN_WIDTH = 1,
             MAX_WIDTH = 72;
 
@@ -222,7 +219,6 @@ define(['socketio','color_parser','color_convert'], function(io, CP, CV) {
     WS.on('canvas load', function(canvasInfo) {
         // Load a PNG dataURI onto the canvas:
         if(canvasInfo.uri) {
-            console.log("Loading existing image data");
             var imageSource = document.createElement('img');
             imageSource.src = canvasInfo.uri;
 

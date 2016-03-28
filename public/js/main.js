@@ -1,9 +1,6 @@
-define(function() {
-    console.log("Initializing");
-    
-    console.log("Configuring RequireJS");
+define('main', [], function() {
     requirejs.config({
-        baseUrl: '/javascripts/lib',
+        baseUrl: '/js/lib',
         paths: {
             app: "../app",
             jquery: 'jquery-2.2.2',
@@ -13,8 +10,5 @@ define(function() {
         }
     });
     
-    console.log("Loading Modules");
-    requirejs(["app/main"])
+    require(["app/main"])
 });
-
-
