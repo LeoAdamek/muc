@@ -135,9 +135,9 @@ define('app/main', ['socketio','color_parser','color_convert'], function(io, CP,
         
         // If already active, deactivate it.
         if(specialMode === 'rainbow' && modeInterval) {
-           specialMode = null;
             clearInterval(modeInterval);
             modeInterval = null;
+            specialMode = null;
             return;
         }
 
@@ -149,9 +149,13 @@ define('app/main', ['socketio','color_parser','color_convert'], function(io, CP,
                 hsl   = CV.RGBtoHSL(currentColor[0], currentColor[1], currentColor[2]),
                 newColor;
 
-            // Change the hue
+            // Change the hue -- 0.002 is the maximum change which looks smooth
             hsl[0] = (hsl[0] + 0.002)%1;
+
+            // Maximum Saturation
             hsl[1] = 1;
+
+            // 0.6 Luminosity is bright and vivid.
             hsl[2] = 0.6;
             
             newColor = CV.HSLtoRGB(hsl[0], hsl[1], hsl[2]);
@@ -159,7 +163,7 @@ define('app/main', ['socketio','color_parser','color_convert'], function(io, CP,
             ourColour = '#' + newColor[0].toString(16) + newColor[1].toString(16) + newColor[2].toString(16);
             
             updatePreview(); 
-        }, 5)
+        }, 20); /* 20ms = 60Hz */
     });
 
     WS.on('started drawing', function(userPoint) {
