@@ -1,1 +1,0 @@
-exports.connected = require('./connected');

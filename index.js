@@ -1,7 +1,6 @@
 var Express = require('express'),
     Routes = require('./routes'),
     HTTP = require('http'),
-    RT = require('./realtime'),
     R = require('rethinkdb'),
     Path = require('path');
 
