@@ -15,8 +15,7 @@ R.connect("localhost", function(error, DB) {
        console.error(error);
         process.exit(130);
     }
-    DB.use("webchat");
-
+    DB.use("muc");
 
     // configure the App itself
     App.set('port', process.env.PORT || 3000);
@@ -35,7 +34,8 @@ R.connect("localhost", function(error, DB) {
     App.get('/', Routes.index);
 
     
-    var currentUsers = 0;
+    var currentUsers = 0,
+        currentCanvas = '';
     IO.on('connection', function(user) {
         console.log("User Connected:" + user.id);
         
@@ -49,22 +49,27 @@ R.connect("localhost", function(error, DB) {
             user.broadcast.emit('drawing move', point);
         });
         
-        user.on('ended drawing', function() {
+        user.on('ended drawing', function(canvas) {
             user.broadcast.emit('ended drawing', {userId: user.id});
+            
+            R.table("lines").insert({line: canvas.line, userId: user.id, at: new Date()}).run(DB);
+            //R.table("canvases").insert({userId: user.id, at: new Date(), imageURI: canvas.image}).run(DB);
+            currentCanvas = canvas.image;
         });
         
         user.on("RESET", function() {
-            console.log(`User ${user.id} requested a full reset`);
+            console.log('User ' + user.id + 'requested a full reset');
             user.broadcast.emit("RESET");
+            
+            R.table("lines").insert({at: new Date(), userId: user.id, flags: ['reset']}).run(DB);
         });
         
         IO.emit('userCount', {users: ++currentUsers});
-        
         user.on('disconnect', function() {
             IO.emit('userCount', {users: --currentUsers});
         });
         
-        console.log("User Count: ", currentUsers);
+        user.emit('canvas load', {uri: currentCanvas});
     });
 
     Server.listen(App.get('port'), function() {

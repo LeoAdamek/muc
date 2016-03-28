@@ -7,7 +7,9 @@ define(function() {
         paths: {
             app: "../app",
             jquery: 'jquery-2.2.2',
-            socketio: '/socket.io/socket.io'
+            socketio: '/socket.io/socket.io',
+            color_parser: 'color-parser',
+            color_convert: 'color-convert'
         }
     });
     
