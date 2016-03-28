@@ -24,6 +24,8 @@ App.use(Express.static(Path.join(__dirname, 'public')));
 App.use(require('errorhandler')());
 
 App.get('/', Routes.index);
+App.post('/rooms', Routes.createRoom);
+App.get('/rooms/:roomId', Routes.room);
 
 var currentUsers = 0,
     currentCanvas = '';

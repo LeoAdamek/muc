@@ -1,0 +1,36 @@
+extends template
+block body
+    h1 Multi-user Canvas
+
+    p I'm working on stuff so it might break.
+
+    #tool-pane
+        div(width="100%" align="center")
+            h2 Tools
+            canvas#preview(width="64", height="64")
+
+        div(width="100%" align="center")
+            input(type="color" id="line-color-picker" width="100%")
+
+            a.col-sm-12.btn.btn-default(href="#")#mode-rainbow RAINBOWS!
+
+            h3 Coming Soon*
+            a.col-sm-12.btn.btn-default(href="#")#tool-eraser Erase
+            a.col-sm-12.btn.btn-default(href="#")#tool-line Line
+            a.col-sm-12.btn.btn-default(href="#")#tool-circle Circle
+            a.col-sm-12.btn.btn-default(href="#")#tool-rect Rectangle
+
+            small *... maybe.
+
+    canvas#drawing-area
+        | This app requires the HTML Canvas API to work. Please use a real browser.
+
+
+    a#reset.btn.btn-danger.btn-lg.col-md-12(href="#")
+        | RESET
+
+    .row
+        | Current Users:
+        span#user-count 0
+
+    script(src="/js/lib/require.js" data-main="/js/main" data-roomid="${room.id}")
